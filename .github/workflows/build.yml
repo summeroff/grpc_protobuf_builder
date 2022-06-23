@@ -35,10 +35,15 @@ jobs:
         uses: microsoft/setup-msbuild@v1
 
       - name: Check cache for grpc 
+        id: grpc-cache-check
         uses: actions/cache@v3
         with:
           path: ${{env.BUILD_DIRECTORY}}/deps/grpc_dist
           key: ${{ runner.os }}-grpc-${{ hashFiles('ci/build_grpc.bat') }}
+
+      - name: grpc - Configure / Build
+        if: steps.grpc-cache-check.outputs.cache-hit != 'true'
+        run: ci/build_grpc.bat
 
       - name: Configure / Build
         run: ci/build.bat
