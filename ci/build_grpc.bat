@@ -1,5 +1,5 @@
 set GRPC_VERSION=v1.47.0
-set CMakeGenerator="Visual Studio 17 2022"
+set CMakeGenerator=Visual Studio 17 2022
 
 if exist build/dist/grpc_dist/ (
     exit 0

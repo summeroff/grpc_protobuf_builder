@@ -1,4 +1,4 @@
-set CMakeGenerator="Visual Studio 17 2022"
+set CMakeGenerator=Visual Studio 17 2022
 
 mkdir build 
 cd build 
