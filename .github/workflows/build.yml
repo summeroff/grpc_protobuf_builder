@@ -45,6 +45,17 @@ jobs:
         if: steps.grpc-cache-check.outputs.cache-hit != 'true'
         run: ci/build_grpc.bat
 
+      - name: Check cache for protobuf
+        id: protobuf-cache-check
+        uses: actions/cache@v3
+        with:
+          path: ${{env.BUILD_DIRECTORY}}/deps/protobuf_dist
+          key: ${{ runner.os }}-protobuf-${{ hashFiles('ci/build_protobuf.bat') }}
+
+      - name: protobuf - Configure / Build
+        if: steps.protobuf-cache-check.outputs.cache-hit != 'true'
+        run: ci/build_protobuf.bat
+
       - name: Configure / Build
         run: ci/build.bat
 
@@ -53,4 +64,10 @@ jobs:
         with:
           path: ${{env.BUILD_DIRECTORY}}/deps/grpc_dist
           key: ${{ runner.os }}-grpc-${{ hashFiles('ci/build_grpc.bat') }}
+
+      - name: Save cache for protobuf
+        uses: actions/cache@v3
+        with:
+          path: ${{env.BUILD_DIRECTORY}}/deps/protobuf_dist
+          key: ${{ runner.os }}-protobuf-${{ hashFiles('ci/build_protobuf.bat') }}
  
