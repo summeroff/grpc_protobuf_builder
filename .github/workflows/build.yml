@@ -43,6 +43,7 @@ jobs:
 
       - name: grpc - Configure / Build
         if: steps.grpc-cache-check.outputs.cache-hit != 'true'
+        shell: cmd
         run: ci/build_grpc.bat
 
       - name: Check cache for protobuf
@@ -54,6 +55,7 @@ jobs:
 
       - name: protobuf - Configure / Build
         if: steps.protobuf-cache-check.outputs.cache-hit != 'true'
+        shell: cmd
         run: ci/build_protobuf.bat
 
       - name: Configure / Build

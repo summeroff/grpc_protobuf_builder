@@ -6,8 +6,8 @@ if exist "%GRPC_DIST%" (
     exit 0
 )
 
-mkdir -p build/dist
-cd build/dist
+mkdir -p build\dist
+cd build\dist
 
 git clone  --branch %GRPC_VERSION% --depth 1 --recurse-submodules  https://github.com/grpc/grpc
 cd grpc
