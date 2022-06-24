@@ -23,7 +23,7 @@ permissions:
 jobs:
   build:
     name: 'Build a package'
-    runs-on: windows-latest
+    runs-on: [windows-2019]
     steps:
       - uses: actions/checkout@v3
       - name: Show GitHub context
@@ -35,41 +35,29 @@ jobs:
         uses: microsoft/setup-msbuild@v1
 
       - name: Check cache for grpc 
-        id: grpc-cache-check
         uses: actions/cache@v3
         with:
           path: ${{env.BUILD_DIRECTORY}}/deps/grpc_dist
-          key: ${{ runner.os }}-grpc-${{ hashFiles('ci/build_grpc.bat') }}
+          key: ${{ runner.os }}-grpc-${{ hashFiles('ci/win-install-grpc.cmd') }}
 
-      - name: grpc - Configure / Build
-        if: steps.grpc-cache-check.outputs.cache-hit != 'true'
-        shell: cmd
-        run: ci/build_grpc.bat
-
-      - name: Check cache for protobuf
-        id: protobuf-cache-check
+       - name: Check cache for protobuf
         uses: actions/cache@v3
         with:
           path: ${{env.BUILD_DIRECTORY}}/deps/protobuf_dist
-          key: ${{ runner.os }}-protobuf-${{ hashFiles('ci/build_protobuf.bat') }}
-
-      - name: protobuf - Configure / Build
-        if: steps.protobuf-cache-check.outputs.cache-hit != 'true'
-        shell: cmd
-        run: ci/build_protobuf.bat
+          key: ${{ runner.os }}-protobuf-${{ hashFiles('ci/win-install-protobuf.cmd') }}
 
       - name: Configure / Build
-        run: ci/build.bat
+        run: ci/win-build.cmd
 
       - name: Save cache for grpc 
         uses: actions/cache@v3
         with:
           path: ${{env.BUILD_DIRECTORY}}/deps/grpc_dist
-          key: ${{ runner.os }}-grpc-${{ hashFiles('ci/build_grpc.bat') }}
+          key: ${{ runner.os }}-grpc-${{ hashFiles('ci/win-install-grpc.cmd') }}
 
       - name: Save cache for protobuf
         uses: actions/cache@v3
         with:
           path: ${{env.BUILD_DIRECTORY}}/deps/protobuf_dist
-          key: ${{ runner.os }}-protobuf-${{ hashFiles('ci/build_protobuf.bat') }}
+          key: ${{ runner.os }}-protobuf-${{ hashFiles('ci/win-install-protobuf.cmd') }}
  
