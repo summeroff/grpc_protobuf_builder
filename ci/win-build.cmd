@@ -19,5 +19,3 @@ cmake .. ^
     -DCMAKE_INSTALL_PREFIX="%INSTALL_PACKAGE_PATH%"
 
 cmake --build .  --parallel 2 --config %BUILD_CONFIGURATION%
-
-echo %CD%
