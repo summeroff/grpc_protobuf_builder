@@ -23,7 +23,7 @@ permissions:
 jobs:
   build:
     name: 'Build a package'
-    runs-on: [windows-2019]
+    runs-on: windows-2019
     steps:
       - uses: actions/checkout@v3
       - name: Show GitHub context
@@ -40,13 +40,14 @@ jobs:
           path: ${{env.BUILD_DIRECTORY}}/deps/grpc_dist
           key: ${{ runner.os }}-grpc-${{ hashFiles('ci/win-install-grpc.cmd') }}
 
-       - name: Check cache for protobuf
+      - name: Check cache for protobuf
         uses: actions/cache@v3
         with:
           path: ${{env.BUILD_DIRECTORY}}/deps/protobuf_dist
           key: ${{ runner.os }}-protobuf-${{ hashFiles('ci/win-install-protobuf.cmd') }}
 
       - name: Configure / Build
+        shell: cmd
         run: ci/win-build.cmd
 
       - name: Save cache for grpc 
