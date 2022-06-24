@@ -1,3 +1,4 @@
+echo on 
 set CMakeGenerator=Visual Studio 16 2019
 set MAIN_DIR=%CD%
 
