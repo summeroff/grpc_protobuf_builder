@@ -23,7 +23,7 @@ permissions:
 jobs:
   build:
     name: 'Build a package'
-    runs-on: windows-2019
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
       - name: Show GitHub context

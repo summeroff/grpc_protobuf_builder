@@ -1,5 +1,5 @@
 echo on 
-set CMakeGenerator=Visual Studio 16 2019
+set CMakeGenerator=Visual Studio 17 2022
 set MAIN_DIR=%CD%
 
 echo call ci\win-install-protobuf.cmd
