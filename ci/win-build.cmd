@@ -13,8 +13,9 @@ cd build
 
 cmake .. ^
     -G"%CMakeGenerator%" -A x64 ^
-    -DProtobuf_DIR="%PROTOBUF_DIST%" ^
-    -DgRPC_DIR="%GRPC_DIST%" ^
+    -DProtobuf_DIR="%PROTOBUF_DIST%\cmake" ^
+    -DgRPC_DIR="%GRPC_DIST%\lib\cmake\grpc" ^
+    -Dabsl_DIR="%GRPC_DIST%\lib\cmake\absl" ^
     -DCMAKE_INSTALL_PREFIX="%INSTALL_PACKAGE_PATH%"
 
 cmake --build . --target install --parallel 2 --config %BUILD_CONFIGURATION%
