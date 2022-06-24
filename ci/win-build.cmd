@@ -18,4 +18,4 @@ cmake .. ^
     -Dabsl_DIR="%GRPC_DIST%\lib\cmake\absl" ^
     -DCMAKE_INSTALL_PREFIX="%INSTALL_PACKAGE_PATH%"
 
-cmake --build . --target install --parallel 2 --config %BUILD_CONFIGURATION%
+cmake --build .  --parallel 2 --config %BUILD_CONFIGURATION%
