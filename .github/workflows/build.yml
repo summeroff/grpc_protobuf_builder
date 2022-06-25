@@ -43,10 +43,4 @@ jobs:
       - name: Configure / Build
         shell: cmd
         run: ci/win-build.cmd
-
-      - name: Save cache for grpc 
-        uses: actions/cache@v3
-        with:
-          path: ${{env.BUILD_DIRECTORY}}/grpc_dist
-          key: ${{ runner.os }}-grpc-${{ hashFiles('ci/win-install-grpc.cmd') }}
-
+ 
