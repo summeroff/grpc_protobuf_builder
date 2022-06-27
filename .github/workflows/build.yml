@@ -1,0 +1,46 @@
+name: build
+
+concurrency: 
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [ "main" ]
+    tags:
+      - '*'
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  BUILD_CONFIGURATION: RelWithDebInfo
+  BUILD_DIRECTORY: "build"
+  DISTRIBUTE_DIRECTORY: "distribute"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: 'Build a package'
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Show GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v1
+
+      - name: Check cache for grpc 
+        uses: actions/cache@v3
+        with:
+          path: ${{env.BUILD_DIRECTORY}}/grpc_dist
+          key: ${{ runner.os }}-grpc-${{ hashFiles('ci/win-install-grpc.cmd') }}
+
+      - name: Configure / Build
+        shell: cmd
+        run: ci/win-build.cmd
+ 
